@@ -20,10 +20,14 @@ spec:
       labels:
         app: flask-app
     spec:
+      # Authenticated image pull from Docker Hub using Docker PAT secret
+      imagePullSecrets:
+        - name: dockerhub-secret
       containers:
         - name: flask-app
           image: shivanshdwivedi222/flask-mongodb-app:latest
-          imagePullPolicy: IfNotPresent
+          # Always pull the image directly from Docker Hub rather than local cache
+          imagePullPolicy: Always
           ports:
             - containerPort: 5000
               name: http
